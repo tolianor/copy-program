@@ -3,6 +3,7 @@ import sqlite3
 import win32clipboard
 from time import sleep
 
+
 con = sqlite3.connect("copy.db")
 cursor = con.cursor()
 cursor.execute("""CREATE TABLE IF NOT EXISTS copy (
@@ -17,7 +18,6 @@ while True:
         if keyboard.is_pressed(f'ctrl+shift+C+{count}'):
             win32clipboard.OpenClipboard()
             data = win32clipboard.GetClipboardData()
-            print(data)
             try:
                 cursor.execute("INSERT INTO copy(number, text) VALUES(?, ?)", (int(count), str(data)))
                 con.commit()
@@ -33,6 +33,5 @@ while True:
             fetch = cursor.fetchone()
             win32clipboard.SetClipboardText(fetch[0])
             win32clipboard.CloseClipboard()
-            print(fetch)
             sleep(0.5)
 
