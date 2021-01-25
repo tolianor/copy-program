@@ -14,7 +14,7 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS copy (
 counts = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 while True:
     for count in counts:
-        if keyboard.is_pressed(f'ctrl+shift+{count}'):
+        if keyboard.is_pressed(f'ctrl+shift+C+{count}'):
             win32clipboard.OpenClipboard()
             data = win32clipboard.GetClipboardData()
             print(data)
@@ -26,7 +26,7 @@ while True:
                 con.commit()
             win32clipboard.CloseClipboard()
             sleep(0.5)
-        elif keyboard.is_pressed(f'ctrl+alt+{count}'):
+        elif keyboard.is_pressed(f'ctrl+shift+V+{count}'):
             win32clipboard.OpenClipboard()
             win32clipboard.EmptyClipboard()
             cursor.execute(f"SELECT text FROM copy WHERE number = {count}")
